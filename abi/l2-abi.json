@@ -1,0 +1,19 @@
+[{
+  "type": "function",
+  "stateMutability": "payable",
+  "outputs": [],
+  "name": "withdrawETH",
+  "inputs": [
+    {
+      "type": "uint256",
+      "name": "_amount",
+      "internalType": "uint256"
+    },
+    {
+      "type": "uint256",
+      "name": "_gasLimit",
+      "internalType": "uint256"
+    }
+  ]
+}
+]
