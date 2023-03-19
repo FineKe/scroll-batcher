@@ -170,13 +170,16 @@ FOR:
 				continue
 			}
 
-			fee := big.NewInt(0).Mul(suggestPrice, big.NewInt(2100))
-			amount := fee.Add(fee, &s.depositAmount)
+			fee := big.NewInt(1).Mul(suggestPrice, big.NewInt(21000))
+			amount := fee.Add(fee, &s.transferAmount)
 
 			// balance not enough
 			if balance.Cmp(amount) == -1 {
 				continue
 			}
+
+			fmt.Println(amount)
+			fmt.Println(balance)
 
 			// drive a new account
 			idx, account := s.wallet.DeriveAccount()
@@ -192,11 +195,13 @@ FOR:
 
 			hash, err := utils.Transfer(s.l1Client, s.superKey, account.Address, &s.transferAmount)
 			if err != nil {
+				log.Println(err)
 				continue
 			}
 
 			s.scrollInterActionMap.Store(idx, &action)
 			log.Println(fmt.Sprintf("transfer %s wei to %s, tx: %s\n", s.transferAmount.String(), account.Address, hash))
+			utils.TxIsSucceed(s.l1Client, *hash)
 		}
 
 	}
